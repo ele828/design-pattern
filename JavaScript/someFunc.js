@@ -1,4 +1,4 @@
-// By 江弦(ele828)
+// By 江弦
 // 函数节流方案
 // 延迟函数执行，降低触发频率
 var throttle = function(fn, intv) {
