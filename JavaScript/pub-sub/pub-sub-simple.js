@@ -30,7 +30,6 @@ salesOffices.trigger = function() {
 /**
  * 测试
  */
-
 salesOffices.listen(function (price) {
     console.log('Price:', price);
 });
