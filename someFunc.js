@@ -75,4 +75,4 @@ var addEvent = function(elem, type, handler) {
     }
     // 直接将addEvent方法重写
     addEvent(elem, type, handler);
-}
+};
