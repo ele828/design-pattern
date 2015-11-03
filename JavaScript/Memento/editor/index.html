@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<textarea name="name" rows="8" cols="40" id="editor">
+
+</textarea>
+
+<button class="undo">undo</button>
+<button class="redo">redo</button>
+
+<script src="memento.js" charset="utf-8"></script>
+<script>
+
+    var $ = document.querySelector.bind(document)
+        , editor = $("#editor")
+        , redo   = $(".redo")
+        , undo   = $(".undo")
+
+    editor.addEventListener('keypress', PressHandler)
+
+    redo.addEventListener('click', function() {
+        EditorMemento.redo();
+        editor.value = EditorMemento.getState().content
+    })
+
+    undo.addEventListener('click', function() {
+        EditorMemento.undo();
+        editor.value = EditorMemento.getState().content
+    })
+
+    function PressHandler( ev ) {
+        var content = $("#editor").value
+        console.log(content)
+
+        EditorMemento.setState({
+            content: content
+        })
+
+    }
+
+</script>
+</body>
+</html>
