@@ -26,7 +26,8 @@ public class InsertCommand implements Command {
 
     @Override
     public void undo() {
-        line.undo(range);
+        System.out.println("removing" + range);
+        line.undoInsert(range);
     }
 
     @Override

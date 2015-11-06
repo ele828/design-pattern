@@ -31,4 +31,9 @@ public class Range {
     public int getLength() {
         return end - start;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getStart() + "," + getEnd() + "]";
+    }
 }

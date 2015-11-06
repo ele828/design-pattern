@@ -1,5 +1,6 @@
 package me.dobest;
 
+import com.sun.javafx.fxml.ParseTraceElement;
 import me.dobest.document.Document;
 import me.dobest.document.Line;
 import me.dobest.state.InsertState;
@@ -28,41 +29,56 @@ public class Editor {
         return this.currentState;
     }
 
+    /**
+     * Runtime cycle.
+     */
+    public void run() {
+        State currentState = null;
+        // Read commands
+        String cmd = "10i";
+        // Parse
+        boolean isCmd = Parser.parse(cmd);
+        if ( isCmd ) {
+
+            State state = new InsertState(doc);
+
+            // Switch command process.
+
+            currentState = state;
+
+        } else {
+            // Input
+            currentState.handle(0, "testing1...");
+        }
+
+    }
+
     public void test() {
         doc = new Document();
 
-
-        doc.append(new Line("hi, I'm Eric"));
-        String str = "testing....";
-        int line = 0;
-
         State state = new InsertState(doc);
         currentState = state;
-        state.handle(line, str);
-        str = "12312321";
-        state.handle(line, str);
+
+        state.handle(0, "testing1...");
+        state.handle(0, "testing2...");
+        state.handle(0, "testing3...");
 
         System.out.println(doc.getFullDoc());
 
         Memento.getInstance().undo();
-        System.out.println(doc.getFullDoc());
         Memento.getInstance().undo();
-        System.out.println(doc.getFullDoc());
 
-        str = "88888888";
-        state.handle(line, str);
-        System.out.println(doc.getFullDoc());
-        state.handle(line, str);
+        System.out.println(Memento.getInstance());
+//        Memento.getInstance().redo();
+
+        state.handle(0, "testing4...");
+
+        Memento.getInstance().redo();
+
         System.out.println(doc.getFullDoc());
 
         System.out.println(Memento.getInstance());
-        System.out.println(doc.getFullDoc());
 
-        Memento.getInstance().redo();
-        System.out.println(doc.getFullDoc());
-
-        Memento.getInstance().redo();
-        System.out.println(doc.getFullDoc());
 
     }
 }

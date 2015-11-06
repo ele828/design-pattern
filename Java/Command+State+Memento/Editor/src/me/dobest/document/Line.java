@@ -36,7 +36,7 @@ public class Line {
                                     .toString();
     }
 
-    public void undo(Range range) {
+    public void undoInsert(Range range) {
         contents = new StringBuilder(contents)
                         .delete(range.getStart(), range.getEnd())
                             .toString();

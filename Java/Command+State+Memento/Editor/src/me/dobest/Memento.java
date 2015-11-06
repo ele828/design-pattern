@@ -12,6 +12,7 @@ public class Memento {
     private static Memento instance;
     private List<Command> _stack = new ArrayList<Command>();
     private int ptr = -1;
+    private int top = 0;
 
     public static Memento getInstance() {
         return instance == null
@@ -20,7 +21,14 @@ public class Memento {
     }
 
     public void setCommand(Command cmd) {
-        _stack.add(++ptr, cmd);
+        ++ptr;
+        if (ptr >= _stack.size()) {
+            _stack.add(ptr, cmd);
+            ++top;
+        } else {
+            _stack.set(ptr, cmd);
+            top = ptr;
+        }
     }
 
     public Command getCommand() {
@@ -34,7 +42,7 @@ public class Memento {
     }
 
     public void redo() {
-        if (ptr >= _stack.size())
+        if (ptr >= top)
             return;
         _stack.get(++ptr).execute();
     }

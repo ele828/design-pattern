@@ -16,10 +16,31 @@ public class Document {
         return doc;
     }
 
+    /**
+     * Return the content of the specific line.
+     * @param lineNum
+     * @return
+     */
     public Line getLine(int lineNum) {
-        return doc.get(lineNum);
+        Line retLine = null;
+        try {
+            retLine = doc.get(lineNum);
+        } catch(IndexOutOfBoundsException e) {
+            // Line not found or out of ranges.
+            // If doc is empty then create a new line and return the last line.
+            if (doc.size() == 0) {
+                this.append(new Line(""));
+            }
+            retLine = doc.get(doc.size()-1);
+        }
+        return retLine;
     }
 
+    /**
+     * Append to the end of the document.
+     * @param line
+     * @return
+     */
     public boolean append(Line line) {
         return doc.add(line);
     }
@@ -29,6 +50,10 @@ public class Document {
         return true;
     }
 
+    /**
+     * Return the while document.
+     * @return
+     */
     public String getFullDoc() {
         StringBuilder sb = new StringBuilder();
         for (Line line : doc) {
